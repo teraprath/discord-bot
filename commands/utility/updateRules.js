@@ -12,7 +12,7 @@ module.exports = {
   async execute(interaction) {
     try {
 
-      const rulesPath = path.join(__dirname, '../..', 'rules.txt');
+      const rulesPath = path.join(__dirname, '../../data', 'rules.txt');
       const rulesText = fs.readFileSync(rulesPath, 'utf8');
 
       const channel = await interaction.client.channels.fetch(rulesChannelId);

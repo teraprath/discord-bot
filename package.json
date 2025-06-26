@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node deploy-commands.js && node ."
+    "dev": "node deploy-commands.js && node .",
+    "deploy": "node deploy-commands.js",
+    "start": "node ."
   },
   "keywords": [],
-  "author": "",
+  "author": "teraprath",
   "license": "ISC",
   "description": "",
   "dependencies": {

@@ -21,7 +21,9 @@ pids
 config.json
 
 # SQLite
+*.sqlite3
 *.sqlite
+*.db
 
 # OS-specific
 .DS_Store

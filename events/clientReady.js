@@ -1,12 +1,13 @@
 const { Events } = require('discord.js');
 const { rolesChannelId } = require('../config.json');
+const { User } = require('../database.js');
 
 module.exports = {
   name: Events.ClientReady,
   once: true,
   async execute(client) {
 
-    console.log(`✅ Bot gestartet als ${client.user.tag}`);
+    await User.sync()
 
     try {
       const channel = await client.channels.fetch(rolesChannelId);
@@ -22,5 +23,7 @@ module.exports = {
     } catch (error) {
       console.error('❌ Fehler beim Vorladen der Rollen-Nachrichten:', error.message);
     }
+
+    console.log(`✅ Bot gestartet als ${client.user.tag}`);
   }
 }

@@ -20,6 +20,9 @@ pids
 # Config files
 config.json
 
+# SQLite
+*.sqlite
+
 # OS-specific
 .DS_Store
 Thumbs.db

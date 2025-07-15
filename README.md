@@ -18,13 +18,9 @@ Erstelle eine `config.json` im Hauptverzeichnis und trage deine Werte ein.
   "rolesChannelId": ""
 }
 ```
-## Test
+## Development
 ```bash
 npm run dev
-```
-## Deploy Commands
-```bash
-npm run deploy
 ```
 ## Start
 ```bash

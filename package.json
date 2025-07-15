@@ -4,7 +4,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "NODE_ENV=development node deploy-commands.js && node .",
-    "start": "NODE_ENV=production node deploy-commands.js && node."
+    "start": "NODE_ENV=production node deploy-commands.js && node ."
   },
   "keywords": [],
   "author": "teraprath",

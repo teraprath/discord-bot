@@ -6,6 +6,6 @@ module.exports = {
   // TODO: Check which role has been added
   async execute(member) {
     if (member.user.bot) return;
-    await User.findOrCreate({where: {username: member.user.tag}});
+    // await User.findOrCreate({where: {username: member.user.tag}});
   },
 };

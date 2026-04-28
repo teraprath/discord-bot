@@ -7,7 +7,7 @@ module.exports = {
     .setDescription('Zeige Statistiken von Benutzern an.'),
   async execute(interaction) {
 
-    const user = await User.findOne({ where: { username: interaction.user.tag } });
+    const user = await User.findOne({ where: { id: interaction.user.id } });
 
     const statsEmbed = new EmbedBuilder()
         .setColor(0x0099FF)
@@ -16,6 +16,7 @@ module.exports = {
         .addFields(
             { name: 'Benutzer', value: `👤 ${interaction.user.username}`, inline: true },
             { name: 'Coins', value: `💰 ${user.coins}`, inline: true },
+            { name: 'Level', value: `🎖️ ${user.level}`, inline: true },
         )
         .setThumbnail(interaction.user.displayAvatarURL())
         .setTimestamp()

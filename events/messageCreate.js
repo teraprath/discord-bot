@@ -7,9 +7,9 @@ module.exports = {
 
     if (message.author.bot) return;
 
-    const user = await User.findOne({ where: { username: message.author.tag } });
+    const user = await User.findOne({ where: { id: message.author.id } });
     const balance = user.coins ? user.coins : 0;
     const random = Math.floor(Math.random() * 5) + 1;
-    user.update({ coins: balance + random }, { where: { username: message.author.tag } });
+    user.update({ coins: balance + random }, { where: { id: message.author.id } });
   },
 };

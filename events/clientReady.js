@@ -7,7 +7,7 @@ module.exports = {
   once: true,
   async execute(client) {
 
-    await User.sync()
+    await User.sync({alter: true})
 
     try {
       const channel = await client.channels.fetch(rolesChannelId);

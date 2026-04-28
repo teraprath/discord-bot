@@ -1,19 +1,40 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: 'data/database.sqlite'
+  storage: 'data/database.sqlite',
+  logging: false,
 });
 
 export const User = sequelize.define('user', {
-  username: {
-    type: Sequelize.STRING,
+  id: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
     unique: true,
-    primaryKey: true
   },
   coins: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     defaultValue: 0,
     allowNull: false,
   },
+  level: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
+  },
+  xp: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
+  }
+}, {
+  timestamps: true,
+  indexes: [
+    { fields: ['coins'] },
+    { fields: ['level'] },
+    { fields: ['xp'] },
+  ],
 });
+
+export { sequelize };

@@ -15,7 +15,8 @@ Erstelle eine `config.json` im Hauptverzeichnis und trage deine Werte ein.
   "guildId": "",
   "memberRoleId": "",
   "rulesChannelId": "",
-  "rolesChannelId": ""
+  "rolesChannelId": "",
+  "levelChannelId": ""
 }
 ```
 ## Development

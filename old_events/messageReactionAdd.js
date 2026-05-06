@@ -9,12 +9,21 @@ module.exports = {
   async execute(reaction, user) {
 
     if (user.bot) return;
-    if (reaction.message.channelId !== rolesChannelId) return;
-    if (!reaction.message.author?.bot) return;
-    if (!reaction.message.content.startsWith('> ###')) return;
 
-    // if (reaction.partial) await reaction.fetch().catch(() => null);
-    // if (reaction.message.partial) await reaction.message.fetch().catch(() => null);
+    // Handle partials FIRST before accessing properties
+    if (reaction.partial) {
+      try { await reaction.fetch(); } catch { return; }
+    }
+
+    if (reaction.message.partial) {
+      try { await reaction.message.fetch(); } catch { return; }
+    }
+
+    if (!reaction.message) return;
+    if (reaction.message.channelId !== rolesChannelId) return;
+    if (!reaction.message.guild) return;
+    if (!reaction.message.author || !reaction.message.author.bot) return;
+    if (!reaction.message.content || !reaction.message.content.startsWith('> ###')) return;
 
     const rolesPath = path.join(__dirname, '../data/roles.json');
     let rolesData;
@@ -32,10 +41,12 @@ module.exports = {
     const categoryRoles = rolesData[categoryName];
     if (!categoryRoles) return;
 
-    const roleEntry = categoryRoles.find(r => r.emoji === reaction.emoji.name);
+    const emojiKey = reaction.emoji.id || reaction.emoji.name;
+    const roleEntry = categoryRoles.find(r => r.emoji === emojiKey);
     if (!roleEntry || !roleEntry.id) return;
 
     try {
+      if (!reaction.message.guild) return;
       const member = await reaction.message.guild.members.fetch(user.id);
       if (member.roles.cache.has(roleEntry.id)) return;
 

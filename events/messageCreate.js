@@ -8,7 +8,17 @@ module.exports = {
 
     if (message.author.bot) return;
 
-    const user = await User.findOne({ where: { id: message.author.id } });
+    if (!message.guild) return;
+
+    let user = await User.findOne({ where: { id: message.author.id } });
+
+    if (!user) {
+      try {
+        user = await User.create({ id: message.author.id, coins: 0, xp: 0, level: 0 });
+      } catch {
+        return;
+      }
+    }
 
     // Coins
     const balance = user.coins ? user.coins : 0;
@@ -47,7 +57,8 @@ module.exports = {
 
     if (newLevel > level) {
 
-      const levelChannel = await message.guild.channels.fetch(levelChannelId).catch(() => null);
+      const levelChannel = message.guild.channels.cache.get(levelChannelId)
+        || await message.guild.channels.fetch(levelChannelId).catch(() => null);
 
       if (levelChannel) {
         levelChannel.send(
@@ -61,6 +72,10 @@ module.exports = {
       newXp = 0;
     }
 
-    user.update({ coins: balance + randomCoins, xp: newXp, level: newLevel }, { where: { id: message.author.id } });
+    try {
+      await user.update({ coins: balance + randomCoins, xp: newXp, level: newLevel });
+    } catch {
+      return;
+    }
   },
 };
